@@ -1,0 +1,71 @@
+# Tema:  Exploración de datos (EDA)
+# Fecha: 31/08/2020
+# Prof:  Jair Villanueva, PhD.
+#.......................................................................
+
+# Packages requeridos para usar en la clase  ................................
+pkgs <- c("ggplot2", "unvotes", "DT","dplyr", "tidyr", "caret","xtable","data.table",
+          "lubridate","klaR","randomForest","qwraps2","corrplot", "nnet","DT","rio",
+          "tidyverse", "psych", "MASS", "ggplot2", "kernlab", "knitr", "funModeling")
+
+# Install packages .........................
+sapply(pkgs, require, character.only = T) 
+#  Instalar paquetes de forma individual: 
+## install.packages("Nombredelpaquete")
+## Hay algunos paquetes que tiene dataset por ejemplo el "mlbench"
+
+## Save & Load ............................
+save.image(file=".RData")         # Guardar los datos en 
+load      (file="feature.RData")  # Cargar datos
+
+# Libraries  ..............................
+library(ggplot2); library(Hmisc);library(pastecs) 
+library(unvotes); library(pastecs); library(dplyr)
+library(tidyverse); library(psych); library(Hmisc)
+library(lubridate); library(summarytools); library(funModeling) 
+library(DT); library(funModeling);library(caret); library(readr) 
+
+# Load data .............................
+# data = read.csv("iris",header = T, sep = ";")  #
+# drug200 <- read_csv("C:/Users/jvill/Desktop/dataset/cancer.csv")  # Cargar data desde una ubicacion del PC
+# Otra opcion es el Importa dataset en Global Environment
+
+cancer <- read_delim("C:/Users/jvill/Desktop/dataset/cancer.csv", # Cargar data desde una ubicacion del PC
+                     ";", escape_double = FALSE, trim_ws = TRUE)
+
+# Cargar data desde un paquete
+# En este caso solo tomaremos a BreastCancer de mlbench
+# data(BreastCancer, package = "mlbench")  #Author DataFlair
+# cancer <- BreastCancer[complete.cases(BreastCancer),]
+# str(cancer)
+
+# Conseguir ayuda ......................
+??ggplot2          # Para paquetes
+example(sqrt)      # Buscar con un ejemplo
+?sqrt              # Para una función 
+# ........................................................
+# Objetivo de la práctica: Crear nuestro primer modelo de ML 
+
+# El objetivo de este es explorar los datos "cancer" 
+# cancer <- read_csv("C:/Users/jvill/Desktop/dataset/cancer2.csv")  # Cargar data desde una ubicacion del PC
+# Paso 1: Cargue sus datos usando import dataset de R studio. 
+# Paso 2: Selecione dataset "cancer.csv"
+# Paso 3: Explore sus datos cancer
+
+str(cancer)        # Mostrar la estructura de un objeto en R (Tipo de datos)
+summary (cancer)   # Estadístico del data set
+glimpse(cancer)    # Vista general de tus datos
+#? glimpse         # Mira que pasa cuando ejecutas esta linea del código
+
+# Crear una función para echar un vistazo a tu datos
+eda <- function(data)
+    {
+  glimpse(data)
+  print(status(data)) # tabla con porcentaje de na y frecuencia
+  freq(data) 
+  print(profiling_num(data))
+  plot_num(data)
+  describe(data)
+}
+eda(cancer)  # Ejecuta la función
+# Con el codigo anterior para ejecutarlos solo debes cambiar data por el 
